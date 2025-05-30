@@ -1,0 +1,26 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class DashboardPage {
+    WebDriver driver;
+
+    By pimMenu = By.xpath("//span[text()='PIM']");
+    By profileIcon = By.className("oxd-userdropdown-icon");
+    By logoutLink = By.xpath("//a[text()='Logout']");
+
+    public DashboardPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public void navigateToPIM() {
+        driver.findElement(pimMenu).click();
+    }
+
+    public void logout() {
+        driver.findElement(profileIcon).click();
+        driver.findElement(logoutLink).click();
+    }
+}
