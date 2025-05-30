@@ -1,0 +1,32 @@
+package tests;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import pages.*;
+
+public class OrangeHRMTest {
+    public static void main(String[] args) {
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login("Admin", "admin123");
+
+        DashboardPage dashboard = new DashboardPage(driver);
+        dashboard.navigateToPIM();
+
+        AddEmployeePage addEmployee = new AddEmployeePage(driver);
+        addEmployee.addEmployee("John", "Doe");
+        addEmployee.addEmployee("Alice", "Smith");
+        addEmployee.addEmployee("Bob", "Brown");
+
+        EmployeeListPage listPage = new EmployeeListPage(driver);
+        listPage.verifyEmployeeByName("John Doe");
+        listPage.verifyEmployeeByName("Alice Smith");
+        listPage.verifyEmployeeByName("Bob Brown");
+
+        dashboard.logout();
+        driver.quit();
+    }
+}
