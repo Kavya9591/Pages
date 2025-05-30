@@ -1,0 +1,35 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
+
+public class EmployeeListPage {
+    WebDriver driver;
+
+    By employeeListLink = By.xpath("//a[text()='Employee List']");
+    By rows = By.cssSelector("div.oxd-table-body > div.oxd-table-card");
+
+    public EmployeeListPage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public void verifyEmployeeByName(String name) {
+        driver.findElement(employeeListLink).click();
+        List<WebElement> allRows = driver.findElements(rows);
+        boolean found = false;
+
+        for (WebElement row : allRows) {
+            if (row.getText().contains(name)) {
+                System.out.println(name + " - Name Verified");
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println(name + " - Not Found");
+        }
+    }
+}
